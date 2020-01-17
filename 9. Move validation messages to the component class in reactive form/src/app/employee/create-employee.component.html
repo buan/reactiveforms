@@ -1,0 +1,111 @@
+<div class="container ">
+    <div class="p-3 text-center col-md-12 mt-2 bg-info text-white">
+        Employee form
+    </div>
+    <div class="form-controls border border-info">
+        <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <div class="form-group col-md">
+          <label for="fullname">Full Name</label>
+          <input type="text" [ngClass]="{'border-danger': (employeeForm.get('fullName').touched || employeeForm.get('fullName').dirty) && employeeForm.get('fullName').invalid}" formControlName="fullName" class="form-control" id="fullname" aria-describedby="emailHelp">
+          
+          <span *ngIf="(employeeForm.get('fullName').touched || employeeForm.get('fullName').dirty) && employeeForm.get('fullName').errors?.required">
+
+            Full Name is mandatory
+            
+          </span>
+
+          <span *ngIf="(employeeForm.get('fullName').touched || employeeForm.get('fullName').dirty) && (employeeForm.get('fullName').errors?.minlength || employeeForm.get('fullName').errors?.maxlength)">
+
+            Full Name should not be less than 2 characters and more than 10 characters
+            
+          </span>
+          
+         
+          
+
+         
+        </div>
+        <!-- MinLength:{{ employeeForm.get('fullName').errors?.minlength | json }}
+        <br>
+        MaxLength:{{ employeeForm.get('fullName').errors?.maxlength | json }}
+        <br>
+        Required:{{ employeeForm.get('fullName').errors?.required | json }} -->
+
+        <div class="form-group col-md">
+          <label for="email">Email</label>
+          <input type="email" formControlName="email" class="form-control" id="email">
+        </div>
+
+        <div formGroupName="skills">
+            <div class="col-md-12">
+                <label for="skills">Skills</label>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input type="text" name="skillname" formControlName="skillname" placeholder="Enter Skills"  class="form-control">
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input type="text" name="experience" placeholder="Experience in years" formControlName="experience" class="form-control" >
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div class="form-group col-md pt-3">
+                <label for="skills">Proficiency</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input ml-3" type="radio" name="proficiency" id="proficiency" value="Beginner" formControlName="proficiency">
+                    <label class="form-check-label" for="proficiency">Beginner</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="proficiency" id="proficiency" value="Intermediate" formControlName="proficiency">
+                    <label class="form-check-label" for="proficiency">Intermediate</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="proficiency" formControlName="proficiency" id="proficiency" value="Advanced">
+                    <label class="form-check-label" for="proficiency">Advanced</label>
+                  </div>
+                
+              </div>
+        </div>
+        
+
+         
+       
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-info">Submit</button>
+            <button type="button" class="ml-2 btn btn-info" (click)="loadvalues()">Load Data</button>
+        </div>
+       
+     
+      </form>
+    </div>
+    
+</div>
+<table border="1" class="mt-2">
+    <tr>
+      <th style="padding: 10px">FormGroup</th>
+      <th style="padding: 10px">FormControl (fullName)</th>
+      <th style="padding: 10px">FormControl (email)</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px">
+        touched : {{ employeeForm.touched }}
+        <br/> dirty : {{ employeeForm.dirty }}
+        <br/> valid : {{ employeeForm.valid }}
+        <br/> Form Values : {{employeeForm.value | json}}
+      </td>
+      <td style="padding: 10px">
+        touched : {{ employeeForm.get('fullName').touched }}
+        <br/> dirty : {{ employeeForm.get('fullName').dirty }}
+        <br/> valid : {{ employeeForm.get('fullName').valid }}
+        <br/> FullName Value : {{employeeForm.get('fullName').value}}
+      </td>
+
+      <td style="padding: 10px">
+        touched : {{ employeeForm.get('email').touched }}
+        <br/> dirty : {{ employeeForm.get('email').dirty }}
+        <br/> valid : {{ employeeForm.get('email').valid }}
+        <br/> FullName Value : {{employeeForm.get('email').value}}
+      </td>
+    </tr>
+</table>
