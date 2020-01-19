@@ -1,0 +1,152 @@
+<div class="container ">
+    <div class="p-3 text-center col-md-12 mt-2 bg-info text-white">
+        Employee form
+    </div>
+    <div class="form-controls border border-info">
+        <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <div class="form-group col-md">
+          <label for="fullname">Full Name</label>
+          <input type="text" [ngClass]="{'border-danger': formErrors.fullName}" formControlName="fullName" class="form-control" id="fullname" aria-describedby="emailHelp" (blur)="logValidationErrors()">
+          
+          <span *ngIf="formErrors.fullName" [ngClass]="{'text-danger': formErrors.fullName}">
+
+            {{formErrors.fullName}}
+            
+          </span>
+
+          
+         
+        </div>
+        
+        <div class="form-group col-md">
+          <label for="email">Email</label>
+          <input type="email" formControlName="email" [ngClass]="{'border-danger': formErrors.email}" class="form-control" id="email" (blur)="logValidationErrors()">
+          <span *ngIf="formErrors.email" [ngClass]="{'text-danger': formErrors.email}">
+
+            {{formErrors.email}}
+            
+          </span>
+
+          
+        </div>
+
+        <div class="form-group col-md">
+          <label for="phone">Phone</label>
+          <input type="text" formControlName="phone" [ngClass]="{'border-danger': formErrors.phone}" class="form-control" id="phone" (blur)="logValidationErrors()">
+          <span *ngIf="formErrors.phone" [ngClass]="{'text-danger': formErrors.phone}">
+
+            {{formErrors.phone}}
+            
+          </span>
+        </div>
+        
+        <div class="form-group col-md pt-3">
+          <label for="preference">Contact Preference</label>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input ml-3" (blur)="logValidationErrors()" type="radio" name="preference" id="preference" value="phone" formControlName="preference">
+              <label class="form-check-label" [ngClass]="{'text-danger': formErrors.preference}" for="preference">Phone</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [ngClass]="{'border-danger': formErrors.preference}" (blur)="logValidationErrors()" name="preference" id="preference" value="email" [ngClass]="{'text-danger': formErrors.preference}" formControlName="preference">
+              <label class="form-check-label" [ngClass]="{'text-danger': formErrors.preference}" for="preference">Email</label>
+            </div>
+            
+          
+        </div>
+        <span *ngIf="formErrors.preference" [ngClass]="{'text-danger': formErrors.preference}">
+
+          {{formErrors.preference}}
+          
+        </span>
+  
+        
+        <div formGroupName="skills">
+            <div class="col-md-12">
+                <label for="skills">Skills</label>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input type="text" name="skillname" (blur)="logValidationErrors()" [ngClass]="{'border-danger': formErrors.skillname}" formControlName="skillname" placeholder="Enter Skills"  class="form-control">
+                        <span *ngIf="formErrors.skillname" [ngClass]="{'text-danger': formErrors.skillname}">
+
+                          {{formErrors.skillname}}
+                          
+                        </span>
+                    </div>
+                    
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input type="text" [ngClass]="{'border-danger': formErrors.experience}" name="experience" placeholder="Experience in years" (blur)="logValidationErrors()"  formControlName="experience" class="form-control" >
+                        <span *ngIf="formErrors.experience" [ngClass]="{'text-danger': formErrors.experience}">
+
+                          {{formErrors.experience}}
+                          
+                        </span>
+                    </div>
+                    
+                    
+                    
+                </div>
+            </div>
+            <div class="form-group col-md pt-3">
+                <label for="skills">Proficiency</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input ml-3" (blur)="logValidationErrors()" type="radio" name="proficiency" id="proficiency" value="Beginner" formControlName="proficiency">
+                    <label class="form-check-label" [ngClass]="{'text-danger': formErrors.proficiency}" for="proficiency">Beginner</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" [ngClass]="{'border-danger': formErrors.fullName}" (blur)="logValidationErrors()" name="proficiency" id="proficiency" value="Intermediate" [ngClass]="{'text-danger': formErrors.fullName}" formControlName="proficiency">
+                    <label class="form-check-label" [ngClass]="{'text-danger': formErrors.proficiency}" for="proficiency">Intermediate</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="proficiency" (blur)="logValidationErrors()" formControlName="proficiency" [ngClass]="{'text-danger': formErrors.fullName}" id="proficiency" value="Advanced">
+                    <label class="form-check-label" [ngClass]="{'text-danger': formErrors.proficiency}" for="proficiency">Advanced</label>
+                  </div>
+                
+              </div>
+              <span *ngIf="formErrors.proficiency" [ngClass]="{'text-danger': formErrors.email}">
+
+                {{formErrors.proficiency}}
+                
+              </span>
+        </div>
+        
+
+         
+       
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-info">Submit</button>
+            <button type="button" class="ml-2 btn btn-info" (click)="loadvalues()">Load Data</button>
+        </div>
+       
+     
+      </form>
+    </div>
+    
+</div>
+<table border="1" class="mt-2">
+    <tr>
+      <th style="padding: 10px">FormGroup</th>
+      <th style="padding: 10px">FormControl (fullName)</th>
+      <th style="padding: 10px">FormControl (email)</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px">
+        touched : {{ employeeForm.touched }}
+        <br/> dirty : {{ employeeForm.dirty }}
+        <br/> valid : {{ employeeForm.valid }}
+        <br/> Form Values : {{employeeForm.value | json}}
+      </td>
+      <td style="padding: 10px">
+        touched : {{ employeeForm.get('fullName').touched }}
+        <br/> dirty : {{ employeeForm.get('fullName').dirty }}
+        <br/> valid : {{ employeeForm.get('fullName').valid }}
+        <br/> FullName Value : {{employeeForm.get('fullName').value}}
+      </td>
+
+      <td style="padding: 10px">
+        touched : {{ employeeForm.get('email').touched }}
+        <br/> dirty : {{ employeeForm.get('email').dirty }}
+        <br/> valid : {{ employeeForm.get('email').valid }}
+        <br/> FullName Value : {{employeeForm.get('email').value}}
+      </td>
+    </tr>
+</table>
